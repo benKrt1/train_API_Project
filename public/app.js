@@ -4,6 +4,29 @@ const input = document.getElementById("stationInput");
 const status = document.getElementById("status");
 const table = document.getElementById("resultsTable");
 const tbody = document.getElementById("resultsBody");
+const stationSelect = document.getElementById("stationSelect");
+
+// Load the list of available stations into the dropdown (select).
+async function loadStations() {
+  try {
+    const res = await fetch("/api/stations");
+    const data = await res.json();
+    stationSelect.innerHTML =
+      `<option value="">— Choose a station —</option>` +
+      data.stations
+        .map((s) => `<option value="${s.name}">${s.name} (${s.signature})</option>`)
+        .join("");
+  } catch {
+    /* not critical — the user can still type a station */
+  }
+}
+
+// When a station is picked from the dropdown, search for it automatically.
+stationSelect.addEventListener("change", () => {
+  if (!stationSelect.value) return;
+  input.value = stationSelect.value;
+  form.dispatchEvent(new Event("submit"));
+});
 
 // Shows only the time (HH:MM) from an ISO timestamp.
 function timeOnly(iso) {
@@ -69,5 +92,6 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-// Automatic search on page load.
+// Populate the station dropdown and run an automatic search on page load.
+loadStations();
 form.dispatchEvent(new Event("submit"));

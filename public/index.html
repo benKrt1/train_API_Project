@@ -12,15 +12,22 @@
       <p class="subtitle">Data from the Trafikverket open API</p>
 
       <form id="searchForm">
+        <select id="stationSelect" aria-label="Choose a station">
+          <option value="">— Choose a station —</option>
+        </select>
         <input
           id="stationInput"
           type="text"
-          placeholder="Station (e.g. Stockholm or Cst)"
+          placeholder="…or type a station / code (e.g. Cst)"
           value="Stockholm"
           autocomplete="off"
         />
         <button type="submit">Search</button>
       </form>
+
+      <p class="hint">
+        Pick a station from the list, or type a signature code (e.g. <code>Cst</code>).
+      </p>
 
       <p id="status" class="status"></p>
 

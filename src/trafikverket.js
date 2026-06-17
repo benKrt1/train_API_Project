@@ -1,6 +1,7 @@
 // Communication with the Trafikverket open API.
 // All requests go to ONE endpoint with POST + XML body, and it returns JSON.
-import { mockAnnouncements, mockStations } from "./mock.js";
+import { mockAnnouncements } from "./mock.js";
+import { stations } from "./stations.js";
 
 const API_URL = "https://api.trafikinfo.trafikverket.se/v2/data.json";
 const API_KEY = process.env.TRAFIKVERKET_API_KEY;
@@ -69,41 +70,31 @@ export async function fetchDepartures(signature, limit = 10) {
   return (result.TrainAnnouncement ?? []).map(cleanAnnouncement);
 }
 
-// Searches for stations by name (e.g. "Stockholm") and returns signature + name.
-export async function fetchStations(search) {
-  if (!hasApiKey) {
-    const q = (search ?? "").toLowerCase();
-    return mockStations
-      .filter((s) => s.AdvertisedLocationName.toLowerCase().includes(q))
-      .map((s) => ({ signature: s.LocationSignature, name: s.AdvertisedLocationName }));
-  }
-  const xml = `<REQUEST>
-    <LOGIN authenticationkey="${API_KEY}" />
-    <QUERY objecttype="TrainStation" schemaversion="1.5" limit="20">
-      <FILTER>
-        <LIKE name="AdvertisedLocationName" value="/${search}/i" />
-      </FILTER>
-      <INCLUDE>LocationSignature</INCLUDE>
-      <INCLUDE>AdvertisedLocationName</INCLUDE>
-    </QUERY>
-  </REQUEST>`;
-  const result = await postRequest(xml);
-  return (result.TrainStation ?? []).map((s) => ({
-    signature: s.LocationSignature,
-    name: s.AdvertisedLocationName,
-  }));
+// Searches our built-in station list by name (e.g. "Stockholm").
+// (The Trafikverket TrainStation dataset needs a Trav-avtal, so we use a
+// local list instead — see stations.js.)
+export function fetchStations(search) {
+  const q = (search ?? "").trim().toLowerCase();
+  if (!q) return stations;
+  return stations.filter((s) => s.name.toLowerCase().includes(q));
 }
 
-// Resolves a station's signature. If the input already looks like a signature
-// (short, e.g. "Cst"), it is returned as is; otherwise we search by name.
-export async function resolveStation(input) {
+// Resolves a station's signature from user input. We try, in order:
+//   1) an exact name match in our list,
+//   2) a partial name match (e.g. "stockholm" -> "Stockholm Central"),
+//   3) otherwise treat the input as a signature code directly (e.g. "Cst").
+// This always returns something, so any valid signature works too.
+export function resolveStation(input) {
   const trimmed = (input ?? "").trim();
   if (!trimmed) return null;
+  const lower = trimmed.toLowerCase();
 
-  // Short input without spaces -> most likely already a signature.
-  if (trimmed.length <= 4 && !trimmed.includes(" ")) {
-    return { signature: trimmed, name: trimmed };
-  }
-  const matches = await fetchStations(trimmed);
-  return matches[0] ?? null;
+  const exact = stations.find((s) => s.name.toLowerCase() === lower);
+  if (exact) return exact;
+
+  const partial = stations.find((s) => s.name.toLowerCase().includes(lower));
+  if (partial) return partial;
+
+  // Fall back to treating the input as a signature code.
+  return { signature: trimmed, name: trimmed };
 }

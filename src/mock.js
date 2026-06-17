@@ -29,11 +29,3 @@ export const mockAnnouncements = [
     Canceled: true,
   },
 ];
-
-// Same schema as objecttype="TrainStation".
-export const mockStations = [
-  { LocationSignature: "Cst", AdvertisedLocationName: "Stockholm Central" },
-  { LocationSignature: "G", AdvertisedLocationName: "Göteborg Central" },
-  { LocationSignature: "M", AdvertisedLocationName: "Malmö Central" },
-  { LocationSignature: "U", AdvertisedLocationName: "Uppsala Central" },
-];

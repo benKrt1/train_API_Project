@@ -8,8 +8,13 @@
   </head>
   <body>
     <main>
-      <h1>🚆 Train Departures</h1>
+      <h1>🚆 Train Board</h1>
       <p class="subtitle">Data from the Trafikverket open API</p>
+
+      <div class="toggle" id="typeToggle">
+        <button type="button" data-type="departure" class="active">Departures</button>
+        <button type="button" data-type="arrival">Arrivals</button>
+      </div>
 
       <form id="searchForm">
         <select id="stationSelect" aria-label="Choose a station">
@@ -25,17 +30,27 @@
         <button type="submit">Search</button>
       </form>
 
+      <div class="controls">
+        <label class="checkbox">
+          <input type="checkbox" id="autoRefresh" />
+          Auto-refresh (45s)
+        </label>
+        <span id="lastUpdated" class="last-updated"></span>
+      </div>
+
       <p class="hint">
         Pick a station from the list, or type a signature code (e.g. <code>Cst</code>).
       </p>
 
       <p id="status" class="status"></p>
 
+      <div id="stats" class="stats" hidden></div>
+
       <table id="resultsTable" hidden>
         <thead>
           <tr>
             <th>Train</th>
-            <th>To</th>
+            <th id="placeHeader">To</th>
             <th>Time</th>
             <th>Estimated</th>
             <th>Track</th>
@@ -44,6 +59,11 @@
         </thead>
         <tbody id="resultsBody"></tbody>
       </table>
+
+      <section class="history">
+        <h2>📜 Recent searches</h2>
+        <ul id="historyList"><li class="muted">No searches yet.</li></ul>
+      </section>
     </main>
 
     <script src="app.js"></script>

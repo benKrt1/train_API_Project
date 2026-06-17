@@ -1,7 +1,16 @@
-# 🚆 Trafikverket Train Departures — APL Project 2026
+# 🚆 Trafikverket Train Board — APL Project 2026
 
-A small **Node.js + Express** app that shows train departures from the free
-**Trafikverket** open API. Built for the assignment *"4. Reverse Engineer a Result"*.
+A small **Node.js + Express** app that shows live train **departures and arrivals**
+from the free **Trafikverket** open API. Built for the assignment
+*"4. Reverse Engineer a Result"*.
+
+## ✨ Features
+
+- 🚆 Departures **and** arrivals for a station (toggle)
+- 📊 Delay statistics (on time / delayed / canceled / average delay)
+- 🔄 Optional auto-refresh every 45 seconds (live board)
+- 📜 Recent searches, stored in and read back from SQLite
+- 🔎 Pick a station from a dropdown or type a name / signature code
 
 ## 🕵️ The assignment idea: Reverse Engineer a Result
 
@@ -46,7 +55,7 @@ Open: **http://localhost:3100**
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/departures?station=Stockholm&limit=10` | Train departures from a station |
+| GET | `/api/departures?station=Stockholm&type=departure&limit=10` | Departures (`type=departure`) or arrivals (`type=arrival`) from a station |
 | GET | `/api/stations?search=stockholm` | Search stations (signature + name) |
 | GET | `/api/history` | Previous searches (from SQLite) |
 

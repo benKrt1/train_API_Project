@@ -7,6 +7,7 @@ export const mockAnnouncements = [
   {
     AdvertisedTrainIdent: "523",
     ToLocation: [{ LocationName: "G" }],
+    FromLocation: [{ LocationName: "Cst" }],
     AdvertisedTimeAtLocation: "2026-06-17T14:05:00.000+02:00",
     EstimatedTimeAtLocation: "2026-06-17T14:11:00.000+02:00",
     TrackAtLocation: "12",
@@ -15,6 +16,7 @@ export const mockAnnouncements = [
   {
     AdvertisedTrainIdent: "1044",
     ToLocation: [{ LocationName: "M" }],
+    FromLocation: [{ LocationName: "U" }],
     AdvertisedTimeAtLocation: "2026-06-17T14:20:00.000+02:00",
     EstimatedTimeAtLocation: null,
     TrackAtLocation: "5",
@@ -23,6 +25,7 @@ export const mockAnnouncements = [
   {
     AdvertisedTrainIdent: "87",
     ToLocation: [{ LocationName: "U" }],
+    FromLocation: [{ LocationName: "G" }],
     AdvertisedTimeAtLocation: "2026-06-17T14:35:00.000+02:00",
     EstimatedTimeAtLocation: "2026-06-17T14:35:00.000+02:00",
     TrackAtLocation: "8",

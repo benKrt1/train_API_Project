@@ -36,6 +36,7 @@ function cleanAnnouncement(a) {
   return {
     trainNumber: a.AdvertisedTrainIdent ?? "?",
     destination: a.ToLocation?.[0]?.LocationName ?? "?",
+    origin: a.FromLocation?.[0]?.LocationName ?? "?",
     scheduledTime: scheduled,
     estimatedTime: estimated,
     track: a.TrackAtLocation ?? "",
@@ -44,8 +45,9 @@ function cleanAnnouncement(a) {
   };
 }
 
-// Fetches train departures for a station (signature, e.g. "Cst").
-export async function fetchDepartures(signature, limit = 10) {
+// Fetches train announcements for a station signature (e.g. "Cst").
+// activityType is "Avgang" (departures) or "Ankomst" (arrivals).
+export async function fetchDepartures(signature, limit = 10, activityType = "Avgang") {
   if (!hasApiKey) {
     return mockAnnouncements.slice(0, limit).map(cleanAnnouncement);
   }
@@ -54,12 +56,13 @@ export async function fetchDepartures(signature, limit = 10) {
     <QUERY objecttype="TrainAnnouncement" schemaversion="1.9" limit="${limit}">
       <FILTER>
         <AND>
-          <EQ name="ActivityType" value="Avgang" />
+          <EQ name="ActivityType" value="${activityType}" />
           <EQ name="LocationSignature" value="${signature}" />
         </AND>
       </FILTER>
       <INCLUDE>AdvertisedTrainIdent</INCLUDE>
       <INCLUDE>ToLocation</INCLUDE>
+      <INCLUDE>FromLocation</INCLUDE>
       <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
       <INCLUDE>EstimatedTimeAtLocation</INCLUDE>
       <INCLUDE>TrackAtLocation</INCLUDE>

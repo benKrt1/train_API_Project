@@ -5,11 +5,14 @@ import { saveDepartures, getHistory } from "./db.js";
 
 const router = Router();
 
-// GET /api/departures?station=Stockholm&limit=10
+// GET /api/departures?station=Stockholm&limit=10&type=departure|arrival
 // Input -> find station -> call Trafikverket -> save -> Output (JSON)
 router.get("/departures", async (req, res) => {
   const station = req.query.station;
   const limit = Math.min(parseInt(req.query.limit, 10) || 10, 50);
+  // "arrival" -> Trafikverket "Ankomst"; anything else -> "Avgang" (departure).
+  const type = req.query.type === "arrival" ? "arrival" : "departure";
+  const activityType = type === "arrival" ? "Ankomst" : "Avgang";
 
   if (!station) {
     return res.status(400).json({ error: "Missing 'station' parameter." });
@@ -20,12 +23,13 @@ router.get("/departures", async (req, res) => {
     if (!resolved) {
       return res.status(404).json({ error: `Station not found: ${station}` });
     }
-    const trains = await fetchDepartures(resolved.signature, limit);
-    saveDepartures(station, resolved.signature, trains);
+    const trains = await fetchDepartures(resolved.signature, limit, activityType);
+    saveDepartures(station, resolved.signature, trains, type);
 
     res.json({
       station: resolved.name,
       signature: resolved.signature,
+      type,
       usingMockData: !hasApiKey,
       count: trains.length,
       departures: trains,

@@ -118,3 +118,120 @@ tr.canceled {
   color: #f87171;
   font-weight: 600;
 }
+
+/* Departures / Arrivals toggle */
+.toggle {
+  display: inline-flex;
+  gap: 0.25rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 0.25rem;
+  margin-top: 1rem;
+}
+
+.toggle button {
+  background: transparent;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  color: #94a3b8;
+}
+
+.toggle button:hover {
+  background: #334155;
+}
+
+.toggle button.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Auto-refresh controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  flex-wrap: wrap;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.last-updated {
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* Statistics dashboard */
+.stats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.stat {
+  flex: 1;
+  min-width: 90px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 0.7rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.stat .num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.stat.ok .num {
+  color: #4ade80;
+}
+
+.stat.warn .num {
+  color: #fbbf24;
+}
+
+.stat.bad .num {
+  color: #f87171;
+}
+
+/* Recent searches */
+.history {
+  margin-top: 2rem;
+}
+
+.history h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history li {
+  padding: 0.5rem 0.8rem;
+  background: #1e293b;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.muted {
+  color: #64748b;
+}

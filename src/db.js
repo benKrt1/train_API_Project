@@ -16,6 +16,7 @@ export function initDb() {
       station   TEXT NOT NULL,
       signature TEXT NOT NULL,
       count     INTEGER NOT NULL,
+      activity_type TEXT,
       created_at TEXT NOT NULL
     );
     CREATE TABLE IF NOT EXISTS departures (
@@ -31,18 +32,27 @@ export function initDb() {
       FOREIGN KEY (search_id) REFERENCES searches(id)
     );
   `);
+
+  // For databases created before activity_type existed, add the column.
+  // Ignore the error if it is already there.
+  try {
+    db.exec("ALTER TABLE searches ADD COLUMN activity_type TEXT");
+  } catch {
+    /* column already exists */
+  }
 }
 
 // Saves a search + its trains. Returns the id of the search.
-export function saveDepartures(station, signature, trains) {
+export function saveDepartures(station, signature, trains, activityType = "departure") {
   const insertSearch = db.prepare(
-    `INSERT INTO searches (station, signature, count, created_at)
-     VALUES (?, ?, ?, ?)`
+    `INSERT INTO searches (station, signature, count, activity_type, created_at)
+     VALUES (?, ?, ?, ?, ?)`
   );
   const info = insertSearch.run(
     station,
     signature,
     trains.length,
+    activityType,
     new Date().toISOString()
   );
   const searchId = info.lastInsertRowid;
@@ -80,7 +90,7 @@ export function saveDepartures(station, signature, trains) {
 export function getHistory(limit = 20) {
   return db
     .prepare(
-      `SELECT id, station, signature, count, created_at
+      `SELECT id, station, signature, count, activity_type, created_at
        FROM searches ORDER BY id DESC LIMIT ?`
     )
     .all(limit);

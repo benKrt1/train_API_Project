@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🚆 Trafikverket Trains</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>🚆 Train Departures</h1>
+      <p class="subtitle">Data from the Trafikverket open API</p>
+
+      <form id="searchForm">
+        <input
+          id="stationInput"
+          type="text"
+          placeholder="Station (e.g. Stockholm or Cst)"
+          value="Stockholm"
+          autocomplete="off"
+        />
+        <button type="submit">Search</button>
+      </form>
+
+      <p id="status" class="status"></p>
+
+      <table id="resultsTable" hidden>
+        <thead>
+          <tr>
+            <th>Train</th>
+            <th>To</th>
+            <th>Time</th>
+            <th>Estimated</th>
+            <th>Track</th>
+            <th>Delay</th>
+          </tr>
+        </thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

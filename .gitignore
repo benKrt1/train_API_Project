@@ -1,0 +1,8 @@
+node_modules/
+.env
+data.db
+data.db-journal
+*.log
+.DS_Store
+Kopia av 4. Reverse Engineer a Result (1).sh
+Kopia av Dokumentation, videoinspelning och Github (1).pdf

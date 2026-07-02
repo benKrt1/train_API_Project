@@ -1,92 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🚆 Trains & Public Transport</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
-      <h1>🚆 Departure Board</h1>
-      <p class="subtitle">Trains from Trafikverket · buses, metro & trams from Trafiklab ResRobot</p>
 
-      <div class="toggle" id="modeToggle">
-        <button type="button" data-mode="train" class="active">🚆 Train</button>
-        <button type="button" data-mode="all">🚍 All</button>
-        <button type="button" data-mode="bus">🚌 Bus</button>
-        <button type="button" data-mode="metro">🚇 Metro</button>
-        <button type="button" data-mode="tram">🚊 Tram</button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trains & Public Transport</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-      <div class="toggle" id="typeToggle">
-        <button type="button" data-type="departure" class="active">Departures</button>
-        <button type="button" data-type="arrival">Arrivals</button>
-      </div>
+<body>
+  <main>
+    <h1>🚆 Departure Board</h1>
+    <p class="subtitle">Trains from Trafikverket · buses, metro & trams from Trafiklab ResRobot</p>
 
-      <form id="searchForm">
-        <select id="stationSelect" aria-label="Choose a station">
-          <option value="">— Choose a station —</option>
-        </select>
-        <input
-          id="stationInput"
-          type="text"
-          placeholder="…or type a station / code (e.g. Cst)"
-          value="Stockholm"
-          autocomplete="off"
-        />
-        <button type="submit">Search</button>
-      </form>
+    <div class="toggle" id="modeToggle">
+      <button type="button" data-mode="train" class="active">🚆 Train</button>
+      <button type="button" data-mode="all">🚍 All</button>
+      <button type="button" data-mode="bus">🚌 Bus</button>
+      <button type="button" data-mode="metro">🚇 Metro</button>
+      <button type="button" data-mode="tram">🚊 Tram</button>
+    </div>
 
-      <div class="controls">
-        <label class="checkbox">
-          <input type="checkbox" id="autoRefresh" />
-          Auto-refresh (45s)
-        </label>
-        <span id="lastUpdated" class="last-updated"></span>
-      </div>
+    <div class="toggle" id="typeToggle">
+      <button type="button" data-type="departure" class="active">Departures</button>
+      <button type="button" data-type="arrival">Arrivals</button>
+    </div>
 
-      <p class="hint" id="searchHint">
-        Pick a station from the list, or type a signature code (e.g. <code>Cst</code>).
-      </p>
+    <form id="searchForm">
+      <select id="stationSelect" aria-label="Choose a station">
+        <option value="">— Choose a station —</option>
+      </select>
+      <input id="stationInput" type="text" placeholder="…or type a station / code (e.g. Cst)" value="Stockholm"
+        autocomplete="off" />
+      <button type="submit">Search</button>
+    </form>
 
-      <p id="status" class="status"></p>
+    <div class="controls">
+      <label class="checkbox">
+        <input type="checkbox" id="autoRefresh" />
+        Auto-refresh (45s)
+      </label>
+      <span id="lastUpdated" class="last-updated"></span>
+    </div>
 
-      <!-- Public-transport filters: type to filter, or click a line chip. -->
-      <div id="filterBar" class="filter-bar" hidden>
-        <input
-          id="resultFilter"
-          type="text"
-          class="filter-input"
-          placeholder="🔎 Filter by line or destination…"
-          autocomplete="off"
-        />
-        <div id="lineChips" class="chips"></div>
-      </div>
+    <p class="hint" id="searchHint">
+      Pick a station from the list, or type a signature code (e.g. <code>Cst</code>).
+    </p>
 
-      <div id="stats" class="stats" hidden></div>
+    <p id="status" class="status"></p>
 
-      <table id="resultsTable" hidden>
-        <thead>
-          <tr>
-            <th>Line</th>
-            <th id="placeHeader">To</th>
-            <th>Time</th>
-            <th>Estimated</th>
-            <th>Track</th>
-            <th>Delay</th>
-          </tr>
-        </thead>
-        <tbody id="resultsBody"></tbody>
-      </table>
+    <!-- Public-transport filters: type to filter, or click a line chip. -->
+    <div id="filterBar" class="filter-bar" hidden>
+      <input id="resultFilter" type="text" class="filter-input" placeholder="🔎 Filter by line or destination…"
+        autocomplete="off" />
+      <div id="lineChips" class="chips"></div>
+    </div>
 
-      <section class="history">
-        <h2>📜 Recent searches</h2>
-        <ul id="historyList"><li class="muted">No searches yet.</li></ul>
-      </section>
-    </main>
+    <div id="stats" class="stats" hidden></div>
 
-    <script src="app.js"></script>
-  </body>
+    <table id="resultsTable" hidden>
+      <thead>
+        <tr>
+          <th>Line</th>
+          <th id="placeHeader">To</th>
+          <th>Time</th>
+          <th>Estimated</th>
+          <th>Track</th>
+          <th>Delay</th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+
+    <section class="history">
+      <h2>📜 Recent searches</h2>
+      <ul id="historyList">
+        <li class="muted">No searches yet.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
 </html>

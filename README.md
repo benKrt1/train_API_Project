@@ -7,11 +7,16 @@ metro and tram (free **Trafiklab ResRobot** API). Built for the assignment
 
 ## ✨ Features
 
-- 🚆 **Transport mode selector**: Train / Bus / Metro / Tram
+- 🚆 **Transport mode selector**: Train / All / Bus / Metro / Tram
+- 🚍 **"All" view** — every bus, metro and tram at a stop in one board, each row
+  tagged with its mode icon
+- 🎯 **Find your line fast** — clickable line chips and a live filter box (by line
+  or destination) narrow the board without a new request
 - 🔁 Departures **and** arrivals for a stop (toggle)
-- 📊 Delay statistics (on time / delayed / canceled / average delay)
+- 📊 Delay statistics (on time / delayed / canceled / average delay) that follow
+  the filtered view
 - 🔄 Optional auto-refresh every 45 seconds (live board)
-- 📜 Recent searches, stored in and read back from SQLite
+- 📜 Recent searches stored in SQLite — **click one to jump back** to that stop
 - 🔎 Trains: pick from a curated list or type a signature code. Public transport:
   live stop search as you type.
 
@@ -82,6 +87,7 @@ src/
   providers.js         # picks the provider for a mode (train vs public transport)
   trafikverket.js      # trains: calls Trafikverket (XML -> JSON), cleans the data
   resrobot.js          # public transport: calls Trafiklab ResRobot (JSON REST)
+  stations.js          # built-in name -> signature list for trains
   db.js                # SQLite: storage & history
   routes.js            # the 3 API endpoints
   mock.js              # fake data when there is no key

@@ -146,6 +146,89 @@ tr.canceled {
   color: #fff;
 }
 
+/* Transport mode toggle sits on its own row above the type toggle. */
+#modeToggle {
+  display: flex;
+  width: fit-content;
+  flex-wrap: wrap;
+}
+
+/* Small mode label in the history list (train / bus / metro / tram). */
+.mode-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: #334155;
+  color: #cbd5e1;
+  border-radius: 4px;
+  padding: 0.05rem 0.4rem;
+  margin-right: 0.35rem;
+}
+
+/* Public-transport filter bar: text filter + line chips. */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+/* The explicit display above would otherwise defeat the `hidden` attribute. */
+.filter-bar[hidden] {
+  display: none;
+}
+
+.filter-input {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e2e8f0;
+  padding: 0.45rem 0.75rem;
+  min-width: 240px;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 999px;
+  color: #cbd5e1;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: #334155;
+}
+
+.chip.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+/* Clickable recent-search rows. */
+.history-item {
+  cursor: pointer;
+}
+
+.history-item:hover {
+  background: #334155;
+}
+
 /* Auto-refresh controls */
 .controls {
   display: flex;

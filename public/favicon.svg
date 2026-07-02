@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Departure Board">
+  <!-- Rounded background in the app's brand blue -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="32" height="32" rx="7" fill="url(#bg)"/>
+
+  <!-- Train body (front view), white -->
+  <rect x="8" y="5" width="16" height="19" rx="6" fill="#ffffff"/>
+
+  <!-- Cab window -->
+  <rect x="11" y="9" width="10" height="6" rx="2" fill="#1e3a8a"/>
+
+  <!-- Headlights -->
+  <circle cx="12.5" cy="19" r="1.5" fill="#1e3a8a"/>
+  <circle cx="19.5" cy="19" r="1.5" fill="#1e3a8a"/>
+
+  <!-- Legs / rails -->
+  <rect x="11" y="24" width="2.5" height="3.5" rx="1" fill="#ffffff"/>
+  <rect x="18.5" y="24" width="2.5" height="3.5" rx="1" fill="#ffffff"/>
+</svg>

@@ -3,13 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🚆 Trafikverket Trains</title>
+    <title>🚆 Trains & Public Transport</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main>
-      <h1>🚆 Train Board</h1>
-      <p class="subtitle">Data from the Trafikverket open API</p>
+      <h1>🚆 Departure Board</h1>
+      <p class="subtitle">Trains from Trafikverket · buses, metro & trams from Trafiklab ResRobot</p>
+
+      <div class="toggle" id="modeToggle">
+        <button type="button" data-mode="train" class="active">🚆 Train</button>
+        <button type="button" data-mode="all">🚍 All</button>
+        <button type="button" data-mode="bus">🚌 Bus</button>
+        <button type="button" data-mode="metro">🚇 Metro</button>
+        <button type="button" data-mode="tram">🚊 Tram</button>
+      </div>
 
       <div class="toggle" id="typeToggle">
         <button type="button" data-type="departure" class="active">Departures</button>
@@ -38,18 +47,30 @@
         <span id="lastUpdated" class="last-updated"></span>
       </div>
 
-      <p class="hint">
+      <p class="hint" id="searchHint">
         Pick a station from the list, or type a signature code (e.g. <code>Cst</code>).
       </p>
 
       <p id="status" class="status"></p>
+
+      <!-- Public-transport filters: type to filter, or click a line chip. -->
+      <div id="filterBar" class="filter-bar" hidden>
+        <input
+          id="resultFilter"
+          type="text"
+          class="filter-input"
+          placeholder="🔎 Filter by line or destination…"
+          autocomplete="off"
+        />
+        <div id="lineChips" class="chips"></div>
+      </div>
 
       <div id="stats" class="stats" hidden></div>
 
       <table id="resultsTable" hidden>
         <thead>
           <tr>
-            <th>Train</th>
+            <th>Line</th>
             <th id="placeHeader">To</th>
             <th>Time</th>
             <th>Estimated</th>

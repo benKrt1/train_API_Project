@@ -32,3 +32,58 @@ export const mockAnnouncements = [
     Canceled: true,
   },
 ];
+
+// Mock public-transport departures, already in OUR normalized shape (the
+// ResRobot provider maps its raw JSON into this same shape). Used when there
+// is NO RESROBOT_API_KEY so the bus/metro/tram modes still work end-to-end.
+// Each entry carries a "mode" so the provider's mode filter can be tested too.
+export const mockPublicTransport = [
+  {
+    line: "4",
+    mode: "bus",
+    trainNumber: "4",
+    destination: "Radiohuset",
+    origin: "Gullmarsplan",
+    scheduledTime: "2026-06-17T14:03:00.000+02:00",
+    estimatedTime: "2026-06-17T14:05:00.000+02:00",
+    track: "B",
+    delayMinutes: 2,
+    canceled: false,
+  },
+  {
+    line: "Röd 13",
+    mode: "metro",
+    trainNumber: "Röd 13",
+    destination: "Ropsten",
+    origin: "T-Centralen",
+    scheduledTime: "2026-06-17T14:07:00.000+02:00",
+    estimatedTime: "2026-06-17T14:07:00.000+02:00",
+    track: "",
+    delayMinutes: 0,
+    canceled: false,
+  },
+  {
+    line: "7",
+    mode: "tram",
+    trainNumber: "7",
+    destination: "Waldemarsudde",
+    origin: "Sergels torg",
+    scheduledTime: "2026-06-17T14:12:00.000+02:00",
+    estimatedTime: null,
+    track: "",
+    delayMinutes: 0,
+    canceled: false,
+  },
+  {
+    line: "172",
+    mode: "bus",
+    trainNumber: "172",
+    destination: "Norsborg",
+    origin: "Skarpnäck",
+    scheduledTime: "2026-06-17T14:18:00.000+02:00",
+    estimatedTime: "2026-06-17T14:18:00.000+02:00",
+    track: "C",
+    delayMinutes: 0,
+    canceled: true,
+  },
+];

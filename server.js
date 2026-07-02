@@ -7,6 +7,7 @@ import path from "node:path";
 import apiRoutes from "./src/routes.js";
 import { initDb } from "./src/db.js";
 import { hasApiKey } from "./src/trafikverket.js";
+import { hasApiKey as hasResRobotKey } from "./src/resrobot.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -23,9 +24,15 @@ app.use("/api", apiRoutes);
 app.listen(PORT, () => {
   console.log(`🚆 Server: http://localhost:${PORT}`);
   if (!hasApiKey) {
-    console.log("ℹ️  No TRAFIKVERKET_API_KEY -> using MOCK data.");
+    console.log("ℹ️  No TRAFIKVERKET_API_KEY -> trains use MOCK data.");
     console.log("   Get a key: https://api.trafikinfo.trafikverket.se/Account/Register");
   } else {
-    console.log("✅ API key found -> using real Trafikverket data.");
+    console.log("✅ Trafikverket key found -> real train data.");
+  }
+  if (!hasResRobotKey) {
+    console.log("ℹ️  No RESROBOT_API_KEY -> bus/metro/tram use MOCK data.");
+    console.log("   Get a key: https://www.trafiklab.se/api/trafiklab-apis/resrobot-v21/");
+  } else {
+    console.log("✅ ResRobot key found -> real public-transport data.");
   }
 });

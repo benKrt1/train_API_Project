@@ -33,8 +33,14 @@ function cleanAnnouncement(a) {
       (new Date(estimated) - new Date(scheduled)) / 60000
     );
   }
+  const trainNumber = a.AdvertisedTrainIdent ?? "?";
   return {
-    trainNumber: a.AdvertisedTrainIdent ?? "?",
+    // "line" and "mode" are the generalized fields shared with the public
+    // transport provider (see resrobot.js). For trains, the line designator
+    // is just the train number and the mode is always "train".
+    line: trainNumber,
+    mode: "train",
+    trainNumber, // kept for backward compatibility
     destination: a.ToLocation?.[0]?.LocationName ?? "?",
     origin: a.FromLocation?.[0]?.LocationName ?? "?",
     scheduledTime: scheduled,
